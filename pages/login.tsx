@@ -1,24 +1,36 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import ErrorHandler from "../components/ErrorHandler";
 import Header from "../components/Header";
+import useAuth from "../hooks/useAuth";
+import { GoogleIcon } from "../components/icons";
 
 interface Inputs {
   email: string;
   password: string;
 }
 
-const login: NextPage = () => {
+const Login: NextPage = () => {
+  const { signIn, signInWithGoogle, user } = useAuth();
   const {
     handleSubmit,
     register,
     formState: { errors },
     watch,
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
-    // signIn(email, password);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user && !user.emailVerified) router.push("/verify-email");
+    else if (user) router.push("/");
+  }, [user]);
+
+  const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
+    signIn(email, password);
   };
 
   return (
@@ -35,7 +47,7 @@ const login: NextPage = () => {
       <main className="min-h-[calc(100vh-81px)] flex justify-center items-center">
         <form
           id="form"
-          className="login-form"
+          className="login-container"
           onSubmit={handleSubmit(onSubmit)}
         >
           <h1 className="font-bold text-4xl family-Raleway tracking-wide text-gray-800 mb-3">
@@ -56,7 +68,7 @@ const login: NextPage = () => {
               type="text"
               id="email"
               className="form-field"
-              placeholder="Email or username"
+              placeholder="Email"
               {...register("email", {
                 required: true,
                 pattern: {
@@ -103,21 +115,31 @@ const login: NextPage = () => {
           </div>
           <div className="!mt-auto flex flex-col space-y-3">
             <button
+              type="button"
+              className="flex justify-center items-center space-x-2 rounded mx-auto w-fit text-second  hover:text-second-shadow fill-second hover:fill-second-shadow transition-colors"
+            >
+              <span className="text-sm w-36" onClick={signInWithGoogle}>
+                Sign in with Google
+              </span>
+              <GoogleIcon className="max-h-3" />
+            </button>
+            <button
               type="submit"
-              className="header-active-button text-xl py-2 px-7"
+              className="header-active-button text-xl py-2 px-14 w-fit mx-auto"
             >
               Confirm
             </button>
-            <Link href="/register">
+            <Link href="/reset-password">
               <a className="text-left text-xs">
-                New in Hedra ? Register right now !
+                Forgot you password ? Reset it now
               </a>
             </Link>
           </div>
         </form>
       </main>
+      <ErrorHandler />
     </div>
   );
 };
 
-export default login;
+export default Login;

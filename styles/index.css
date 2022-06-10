@@ -45,7 +45,7 @@
     @apply min-h-max max-w-[1280px] px-5 flex items-center justify-between mx-auto flex-col-reverse md:flex-row;
   }
 
-  .login-form {
+  .login-container {
     @apply min-h-[30rem] border-2 border-gray-50 w-[min(100%,30rem)] rounded-xl my-10 text-center p-8 space-y-6 flex flex-col items-center;
     background: linear-gradient(
       45deg,
@@ -71,5 +71,24 @@
   .shadow-hover:hover,
   .shadow-hover:focus-visible {
     text-shadow: 0px 0.25rem 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .loader-spinner {
+    border: 3px solid transparent;
+    border-top: 3px solid black;
+    border-right: 3px solid black;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
