@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "DM Sans", sans-serif;
+  }
+
+  *:focus-visible {
+    @apply outline-none bg-black/[.05];
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.7em;
+    height: 0.7em;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #bfbfbf;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4d4d4d;
+  }
+
+  @supports (scrollbar-color: #4d4d4d #bfbfbf) {
+    * {
+      scrollbar-color: #4d4d4d #bfbfbf;
+      scrollbar-width: thin;
+    }
+  }
+}
+
+@layer components {
+  .header-active-button {
+    @apply text-sm md:text-xl font-bold bg-main border-2 border-main hover:bg-main-shadow focus-visible:bg-main-shadow hover:border-main-shadow focus-visible:border-main-shadow transition-colors text-white py-1 md:py-2 px-4 md:px-7 rounded-full;
+  }
+
+  .header-secondary-button {
+    @apply text-xl font-bold transition-colors py-2 px-10 rounded-full border-2 border-black hover:bg-black focus-visible:bg-black hover:text-white focus-visible:text-white duration-300;
+  }
+
+  .hero-section {
+    @apply min-h-max max-w-[1280px] px-5 flex items-center justify-between mx-auto flex-col-reverse md:flex-row;
+  }
+
+  .login-form {
+    @apply min-h-[30rem] border-2 border-gray-50 w-[min(100%,30rem)] rounded-xl my-10 text-center p-8 space-y-6 flex flex-col items-center;
+    background: linear-gradient(
+      45deg,
+      rgba(252, 252, 252, 1) 0%,
+      rgba(250, 250, 250, 1) 80%
+    );
+    box-shadow: inset -3px 3px 3px white,
+      -10px 10px 30px -15px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-field {
+    @apply border-b-2 border-gray-500 bg-transparent w-80 h-8 focus-visible:bg-gray-100  rounded-t-sm px-2 placeholder:text-gray-600;
+  }
+
+  .family-Raleway {
+    font-family: "Raleway", sans-serif;
+  }
+
+  .shadow-hover {
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0);
+  }
+
+  .shadow-hover:hover,
+  .shadow-hover:focus-visible {
+    text-shadow: 0px 0.25rem 3px rgba(0, 0, 0, 0.05);
+  }
+}
