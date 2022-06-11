@@ -114,8 +114,10 @@ export const AuthProvider: NextPage<AuthProviderProps> = ({ children }) => {
       });
       setLastEmailDate(new Date());
       router.push("/verify-email");
-    } catch (err) {
-      setAuthError("Error when signing up");
+    } catch (err: any) {
+      if (err?.code === "auth/email-already-in-use")
+        setAuthError("Error: Email already used");
+      else setAuthError("Error when signing up");
     } finally {
       setAuthLoading(false);
     }
