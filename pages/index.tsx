@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import App from "../components/App";
 import Homepage from "../components/Homepage";
 import useAuth from "../hooks/useAuth";
 
@@ -11,7 +12,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (user && !user.emailVerified) router.push("/verify-email");
   }, [user]);
-  return user?.emailVerified ? <h1>connected</h1> : <Homepage />;
+  return user?.emailVerified ? <App /> : <Homepage />;
 };
 
 export default Home;
