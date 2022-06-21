@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import App from "../components/App";
 import Homepage from "../components/Homepage";
 import useAuth from "../hooks/useAuth";
 
 const Home: NextPage = () => {
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

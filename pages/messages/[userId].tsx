@@ -11,9 +11,9 @@ const ConversationPage: NextPage = () => {
 
   useEffect(() => {
     if (user && !user.emailVerified) router.push("/verify-email");
+    else if (!user) router.push("/");
   }, [user]);
-
-  return user?.emailVerified ? <App /> : <Homepage />;
+  return user?.emailVerified ? <App /> : <div />;
 };
 
 export default ConversationPage;

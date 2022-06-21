@@ -1,8 +1,10 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import ConversationTab from "./ConversationTab";
+import UserTab from "./UserTab";
 
-interface Props {}
+interface Props {
+  collapsed: boolean;
+}
 
 const data = [
   {
@@ -43,12 +45,16 @@ const data = [
   },
 ];
 
-const SideBar: NextPage<Props> = () => {
+const SideBar: NextPage<Props> = ({ collapsed }) => {
   const router = useRouter();
   const { userId } = router.query;
 
   return (
-    <div className="h-screen w-96 border-r-2 border-gray-200">
+    <div
+      className={`h-screen border-r-2 border-gray-200 overflow-hidden grid-sidebar ${
+        collapsed ? "w-0" : "w-96"
+      }`}
+    >
       <div className="px-8 pt-11 border-b-2 border-gray-200">
         <h2 className="font-bold text-4xl">Message</h2>
         <input
@@ -57,19 +63,24 @@ const SideBar: NextPage<Props> = () => {
           placeholder="Search for a person here..."
         />
       </div>
-      {data.map((tab) => (
-        <ConversationTab
-          key={tab.userId}
-          username={tab.username}
-          userId={tab.userId}
-          message={tab.message}
-          pictureUrl={tab.pictureUrl}
-          sentDate={tab.sentDate}
-          seen={tab.seen}
-          loggedIn={tab.loggedIn}
-          active={tab.userId === userId}
-        />
-      ))}
+      <div className="overflow-y-auto">
+        {data.map((tab) => (
+          <UserTab
+            key={tab.userId}
+            username={tab.username}
+            userId={tab.userId}
+            message={tab.message}
+            pictureUrl={tab.pictureUrl}
+            sentDate={tab.sentDate}
+            seen={tab.seen}
+            loggedIn={tab.loggedIn}
+            active={tab.userId === userId}
+          />
+        ))}
+      </div>
+      <button className="px-auto py-5 w-full text-main font-bold text-xl bg-[#fcfcfc]">
+        Invite Friends
+      </button>
     </div>
   );
 };

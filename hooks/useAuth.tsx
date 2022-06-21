@@ -69,15 +69,16 @@ export const AuthProvider: NextPage<AuthProviderProps> = ({ children }) => {
   }, [authError]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       console.log(user);
       if (user) {
-        setUser(user);
+        await setUser(user);
+        setInitialLoading(false);
       } else {
-        setUser(null);
+        await setUser(null);
+        setInitialLoading(false);
       }
     });
-    setInitialLoading(false);
   }, [auth]);
 
   useEffect(() => {

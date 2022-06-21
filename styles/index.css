@@ -105,4 +105,9 @@
   .state-pin {
     @apply h-2 w-2 rounded-full inline-block mr-3;
   }
+
+  .grid-sidebar {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
 }

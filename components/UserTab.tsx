@@ -14,7 +14,7 @@ interface Props {
   loggedIn?: boolean;
 }
 
-const ConversationTab: NextPage<Props> = ({
+const UserTab: NextPage<Props> = ({
   username,
   userId,
   pictureUrl,
@@ -61,4 +61,4 @@ const ConversationTab: NextPage<Props> = ({
   );
 };
 
-export default ConversationTab;
+export default UserTab;
