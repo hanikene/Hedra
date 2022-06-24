@@ -3,53 +3,77 @@ import ChatContainer from "./ChatContainer";
 import AppHeader from "./AppHeader";
 import SideBar from "./SideBar";
 import { useRouter } from "next/router";
-import moment from "moment";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface Props {}
+interface Props {
+  index?: boolean;
+}
 
 const data = {
-  username: "John Patterson",
-  userId: 2,
+  user: { username: "John Patterson", userId: "2" },
   messages: [
     {
       text: "Hey John 👋",
-      owner: 0,
-      date: moment("May 23, 2022 12:24:00"),
+      owner: "0",
+      date: new Date("2022-02-08 09:30:26 "),
+      id: "m1",
     },
     {
       text: "Hello Nassim, How are you doing ?",
-      owner: 2,
-      date: moment("May 23, 2022 12:44:00"),
+      owner: "2",
+      date: new Date("2022-02-08 09:34:56"),
+      id: "m2",
     },
   ],
 };
 
-const App: NextPage<Props> = () => {
+const App: NextPage<Props> = ({ index }) => {
   const router = useRouter();
   const { userId } = router.query;
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isMobileScreen, setIsMobileScreen] = useState(window.innerWidth < 640);
+
+  const resizeEvent = () => {
+    if (window.innerWidth >= 640) setIsMobileScreen(false);
+    else setIsMobileScreen(true);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", resizeEvent);
+    return () => {
+      window.removeEventListener("resize", resizeEvent);
+    };
+  }, []);
 
   return (
     <div className="flex">
       <Head>
-        <title>{userId ? `${data.username} - hedra` : "Hedra - home"}</title>
+        <title>
+          {userId ? `${data.user.username} - hedra` : "Hedra - home"}
+        </title>
         <meta
           name="description"
           content="Hedra: the Beautiful chat application"
         />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <SideBar collapsed={sidebarCollapsed} />
-      <div className="grow">
-        <AppHeader
-          username={data.username}
-          sidebarCollapsed={sidebarCollapsed}
-          setSidebarCollapsed={setSidebarCollapsed}
-        />
-        {userId && <ChatContainer />}
-      </div>
+      {(index || !isMobileScreen) && (
+        <SideBar collapsed={sidebarCollapsed} isMobileScreen={isMobileScreen} />
+      )}
+      {(!index || !isMobileScreen) && (
+        <div className="grow">
+          <AppHeader
+            username={data.user.username}
+            sidebarCollapsed={sidebarCollapsed}
+            setSidebarCollapsed={setSidebarCollapsed}
+            isMobileScreen={isMobileScreen}
+          />
+          {userId && (
+            <ChatContainer userId={data.user.userId} messages={data.messages} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

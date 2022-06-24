@@ -12,21 +12,22 @@
   }
 
   ::-webkit-scrollbar {
-    width: 0.7em;
-    height: 0.7em;
+    width: 0.6em;
+    height: 0.6em;
   }
 
   ::-webkit-scrollbar-track {
-    background: #bfbfbf;
+    background: #eee;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #4d4d4d;
+    background: #555;
+    border-radius: 1000px;
   }
 
-  @supports (scrollbar-color: #4d4d4d #bfbfbf) {
+  @supports (scrollbar-color: #555 #eee) {
     * {
-      scrollbar-color: #4d4d4d #bfbfbf;
+      scrollbar-color: #555 #eee;
       scrollbar-width: thin;
     }
   }

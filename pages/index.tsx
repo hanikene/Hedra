@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (user && !user.emailVerified) router.push("/verify-email");
   }, [user]);
-  return user?.emailVerified ? <App /> : <Homepage />;
+  return user?.emailVerified ? <App index /> : <Homepage />;
 };
 
 export default Home;
