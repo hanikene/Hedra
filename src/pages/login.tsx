@@ -6,8 +6,8 @@ import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ErrorHandler from "../components/ErrorHandler";
 import Header from "../components/Header";
-import useAuth from "../hooks/useAuth";
 import { GoogleIcon } from "../components/icons";
+import useAuth from "../hooks/useAuth";
 
 interface Inputs {
   email: string;
@@ -131,7 +131,7 @@ const Login: NextPage = () => {
             </button>
             <Link href="/reset-password">
               <a className="text-left text-xs">
-                Forgot you password ? Reset it now
+                Forgot your password ? Reset it now
               </a>
             </Link>
           </div>

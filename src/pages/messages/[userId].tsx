@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import App from "../../components/App";
-import Homepage from "../../components/Homepage";
 import useAuth from "../../hooks/useAuth";
 
 const ConversationPage: NextPage = () => {

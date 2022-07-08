@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ParamsSvg } from "./icons";
 import UserTab from "./UserTab";
@@ -60,7 +61,13 @@ const SideBar: NextPage<Props> = ({ collapsed, isMobileScreen }) => {
       <div className="px-8 pt-11 border-b-2 border-gray-200">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-4xl">Message</h2>
-          {isMobileScreen && <ParamsSvg className="h-5 w-5 fill-gray-600" />}
+          {isMobileScreen && (
+            <Link href="/settings">
+              <a>
+                <ParamsSvg className="h-5 w-5 fill-gray-600" />
+              </a>
+            </Link>
+          )}
         </div>
         <input
           className="my-4 px-6 py-2 w-full rounded-full bg-gray-100"

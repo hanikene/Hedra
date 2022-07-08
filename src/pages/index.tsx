@@ -6,7 +6,7 @@ import Homepage from "../components/Homepage";
 import useAuth from "../hooks/useAuth";
 
 const Home: NextPage = () => {
-  const { user, authLoading } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

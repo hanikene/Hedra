@@ -111,4 +111,9 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
   }
+
+  .container-image-setting {
+    @apply absolute left-0 top-0 w-full h-full z-[1] flex justify-center items-center rounded-lg opacity-0 hover:opacity-100;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }

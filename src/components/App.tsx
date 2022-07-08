@@ -1,10 +1,11 @@
 import { NextPage } from "next";
-import ChatContainer from "./ChatContainer";
-import AppHeader from "./AppHeader";
-import SideBar from "./SideBar";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { trpc } from "../utils/trpc";
+import SideBar from "./SideBar";
+import AppHeader from "./AppHeader";
+import ChatContainer from "./ChatContainer";
 
 interface Props {
   index?: boolean;
@@ -33,6 +34,8 @@ const App: NextPage<Props> = ({ index }) => {
   const { userId } = router.query;
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(window.innerWidth < 640);
+  const { data: data2, isLoading } = trpc.useQuery(["hello"]);
+  if (!isLoading) console.log(data2);
 
   const resizeEvent = () => {
     if (window.innerWidth >= 640) setIsMobileScreen(false);
@@ -68,6 +71,7 @@ const App: NextPage<Props> = ({ index }) => {
             sidebarCollapsed={sidebarCollapsed}
             setSidebarCollapsed={setSidebarCollapsed}
             isMobileScreen={isMobileScreen}
+            index={index}
           />
           {userId && (
             <ChatContainer userId={data.user.userId} messages={data.messages} />

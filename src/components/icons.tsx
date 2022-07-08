@@ -56,3 +56,29 @@ export const ParamsSvg: NextPage<Props> = ({ className, onClick }) => {
     </svg>
   );
 };
+
+export const CrossSvg: NextPage<Props> = ({ className, onClick }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    viewBox="0 0 24 24"
+    onClick={onClick}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
+export const PlusSvg: NextPage<Props> = ({ className, onClick }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    viewBox="0 0 24 24"
+    onClick={onClick}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+  </svg>
+);

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ErrorHandler from "../components/ErrorHandler";
 import Header from "../components/Header";
 import { LoadingSmallSvg } from "../components/icons";
