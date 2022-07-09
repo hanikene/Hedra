@@ -6,6 +6,7 @@ import { trpc } from "../utils/trpc";
 import SideBar from "./SideBar";
 import AppHeader from "./AppHeader";
 import ChatContainer from "./ChatContainer";
+import { useMutation } from "react-query";
 
 interface Props {
   index?: boolean;
@@ -34,8 +35,14 @@ const App: NextPage<Props> = ({ index }) => {
   const { userId } = router.query;
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(window.innerWidth < 640);
-  const { data: data2, isLoading } = trpc.useQuery(["hello"]);
-  if (!isLoading) console.log(data2);
+  const signUpMutation = trpc.useMutation(["user.signUp"]);
+
+  function onSignUp() {
+    signUpMutation.mutate({
+      email: "test1@emil.com",
+      name: "user1",
+    });
+  }
 
   const resizeEvent = () => {
     if (window.innerWidth >= 640) setIsMobileScreen(false);
@@ -66,6 +73,7 @@ const App: NextPage<Props> = ({ index }) => {
       )}
       {(!index || !isMobileScreen) && (
         <div className="grow">
+          <button onClick={onSignUp}>Click me</button>
           <AppHeader
             username={data.user.username}
             sidebarCollapsed={sidebarCollapsed}
