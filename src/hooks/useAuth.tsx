@@ -17,9 +17,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/init";
 import { useRouter } from "next/router";
-import { COUNT_DOWN_TIME } from "../constants";
+import { COUNT_DOWN_TIME } from "../utils/constants";
 
 interface InterfaceAuth {
   user: User | null;
@@ -70,8 +70,9 @@ export const AuthProvider: NextPage<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       if (user) {
+        const idToken = await user?.getIdToken();
+        sessionStorage.setItem("token", `Bearer ${idToken}`);
         await setUser(user);
         setInitialLoading(false);
       } else {

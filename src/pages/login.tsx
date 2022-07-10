@@ -33,6 +33,7 @@ const Login: NextPage = () => {
     signIn(email, password);
   };
 
+  if (user) return null;
   return (
     <div>
       <Head>

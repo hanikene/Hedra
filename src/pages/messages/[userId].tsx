@@ -12,7 +12,9 @@ const ConversationPage: NextPage = () => {
     if (user && !user.emailVerified) router.push("/verify-email");
     else if (!user) router.push("/");
   }, [user]);
-  return user?.emailVerified ? <App /> : <div />;
+
+  if (!user?.emailVerified) return null;
+  return <App />;
 };
 
 export default ConversationPage;

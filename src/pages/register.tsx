@@ -46,6 +46,7 @@ const Register: NextPage = () => {
     min1NumberRegex &&
     min1specialCharRegex;
 
+  if (user) return null;
   return (
     <div>
       <Head>

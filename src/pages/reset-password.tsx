@@ -24,8 +24,7 @@ const ResetPassword: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user?.emailVerified) router.push("/");
-    else if (user) router.push("/verify-email");
+    if (user && !user.emailVerified) router.push("/verify-email");
   }, [user]);
 
   const onSubmit: SubmitHandler<Inputs> = ({ email }) => {
@@ -34,6 +33,7 @@ const ResetPassword: NextPage = () => {
     });
   };
 
+  if (user && !user.emailVerified) return null;
   return (
     <div>
       <Head>
@@ -44,7 +44,7 @@ const ResetPassword: NextPage = () => {
         />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <Header />
+      {!user && <Header />}
       <main className="min-h-[calc(100vh-81px)] flex justify-center items-center">
         {!isEmailSent ? (
           <form
@@ -95,7 +95,7 @@ const ResetPassword: NextPage = () => {
               >
                 Confirm
               </button>
-              <Link href="/login">
+              <Link href={user?.emailVerified ? "/settings" : "/login"}>
                 <a className="text-left text-xs">
                   <button
                     type="submit"
@@ -116,7 +116,7 @@ const ResetPassword: NextPage = () => {
               Email sent successfully ! Please check your email and click on the
               link to reset your password.
             </p>
-            <Link href="/login">
+            <Link href={user?.emailVerified ? "/settings" : "/login"}>
               <a className="text-left text-xs !mt-auto !mb-8">
                 <button
                   type="submit"

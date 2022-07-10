@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import useAuth from "@/hooks/useAuth";
-import { CrossSvg, PlusSvg } from "@/components/icons";
+import useAuth from "../../hooks/useAuth";
+import { CrossSvg, PlusSvg } from "../../components/icons";
 
 interface Props {}
 
@@ -17,9 +17,9 @@ const Settings: NextPage<Props> = () => {
     if (user && !user.emailVerified) router.push("/verify-email");
     if (!user) router.push("/");
   }, [user]);
-  return !user ? (
-    <h1>loading</h1>
-  ) : (
+
+  if (!user?.emailVerified) return null;
+  return (
     <div>
       <Head>
         <title>Hedra - settings</title>
@@ -62,12 +62,12 @@ const Settings: NextPage<Props> = () => {
           <button className=" text-xl">Change Profile Picture</button>
           <Link href="/settings/information">
             <a>
-              <button className=" text-xl">Change information</button>
+              <button className=" text-xl">Change informations</button>
             </a>
           </Link>
-          <Link href="/settings/password">
+          <Link href="/reset-password">
             <a>
-              <button className=" text-xl">Change password</button>
+              <button className=" text-xl">Reset password</button>
             </a>
           </Link>
           <Link href="/">

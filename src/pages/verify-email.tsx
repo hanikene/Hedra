@@ -6,6 +6,7 @@ import ErrorHandler from "../components/ErrorHandler";
 import Header from "../components/Header";
 import { LoadingSmallSvg } from "../components/icons";
 import useAuth from "../hooks/useAuth";
+import { changeSecondsToTime } from "../utils/helpers";
 
 const VerifyEmail: NextPage = () => {
   const {
@@ -15,20 +16,11 @@ const VerifyEmail: NextPage = () => {
     resendVerificationEmail,
     remainingTimeEmail,
   } = useAuth();
-
   const router = useRouter();
-  let countDownId: any;
 
   useEffect(() => {
-    if (user?.emailVerified) router.push("/");
+    if (!user || user.emailVerified) router.push("/");
   }, [user]);
-
-  const changeSecondsToTime = (time: number): string => {
-    let minutes: string | number = Math.floor(time / 60);
-    let seconds: string | number = time % 60;
-    if (seconds < 10) seconds = "0" + seconds;
-    return `${minutes}:${seconds}`;
-  };
 
   const handleResendEmail = () => {
     resendVerificationEmail();
@@ -40,6 +32,7 @@ const VerifyEmail: NextPage = () => {
     });
   };
 
+  if (!user || user.emailVerified) return null;
   return (
     <div>
       <Head>

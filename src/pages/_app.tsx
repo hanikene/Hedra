@@ -3,7 +3,7 @@ import { withTRPC } from "@trpc/next";
 import { AppType } from "next/dist/shared/lib/utils";
 import "../styles/index.css";
 import { AuthProvider } from "../hooks/useAuth";
-import { AppRouter } from "./api/trpc/[trpc]";
+import { AppRouter } from "../server/routes/app.router";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -21,7 +21,13 @@ export default withTRPC<AppRouter>({
 
     return {
       url,
+      headers() {
+        return {
+          ...ctx?.req?.headers,
+          Authorization: sessionStorage.getItem("token") ?? "",
+        };
+      },
     };
   },
-  ssr: true,
+  ssr: false,
 })(MyApp);

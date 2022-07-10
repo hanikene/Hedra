@@ -7,6 +7,7 @@ import SideBar from "./SideBar";
 import AppHeader from "./AppHeader";
 import ChatContainer from "./ChatContainer";
 import { useMutation } from "react-query";
+import useAuth from "../hooks/useAuth";
 
 interface Props {
   index?: boolean;
@@ -35,8 +36,9 @@ const App: NextPage<Props> = ({ index }) => {
   const { userId } = router.query;
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(window.innerWidth < 640);
-  const signUpMutation = trpc.useMutation(["user.signUp"]);
-
+  const signUpMutation = trpc.useMutation(["users.signUp"]);
+  const { data: result } = trpc.useQuery(["users.get-token"]);
+  if (result) console.log(result);
   function onSignUp() {
     signUpMutation.mutate({
       email: "test1@emil.com",
