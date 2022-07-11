@@ -76,6 +76,7 @@ export const AuthProvider: NextPage<AuthProviderProps> = ({ children }) => {
         await setUser(user);
         setInitialLoading(false);
       } else {
+        sessionStorage.removeItem("token");
         await setUser(null);
         setInitialLoading(false);
       }

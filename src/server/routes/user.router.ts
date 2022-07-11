@@ -3,7 +3,6 @@ import { Context } from "../createContext";
 import { z } from "zod";
 import { prisma } from "../../utils/prisma";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
-import * as admin from "firebase-admin";
 
 const userRouter = trpc
   .router<Context>()
@@ -41,16 +40,8 @@ const userRouter = trpc
   })
   .query("get-token", {
     async resolve({ ctx }) {
-      try {
-        const token = ctx.req.headers.authorization?.split(" ")[1];
-        if (token) {
-          const decoded = await admin.auth().verifyIdToken(token);
-          if (decoded) return { data: decoded.user_id };
-        }
-        return { data: "No token." };
-      } catch (err) {
-        console.log(err);
-      }
+      const { user_id } = await ctx;
+      return { data: user_id ?? "No valid token provided." };
     },
   });
 
